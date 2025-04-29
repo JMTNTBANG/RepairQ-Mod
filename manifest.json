@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "RepairQ Mods",
+  "version": "0.2",
+  "description": "Makes some changes to RepairQ",
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": [
+        "https://cpr.repairq.io/*"
+      ]
+    }
+  ]
+}
