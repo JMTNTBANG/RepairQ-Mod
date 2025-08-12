@@ -3,6 +3,8 @@ const pendNotif = document.getElementsByClassName("pending_notification");
 const pendApprov = document.getElementsByClassName("pending_approval");
 const dropdowns = document.getElementById("TicketForm_status");
 
+const extensionVersion = 0.5
+
 if (pendNotif) {
   for (i = 0; i < pendNotif.length; i++) {
     pendNotif[i].innerText = "Waiting for Customer Device";
@@ -48,7 +50,13 @@ if (popup_container) {
 }
 
 if (window.location.pathname.startsWith("/ticket/printLabel/")) {
-  document.querySelector("body > div > table > tbody > tr:nth-child(1) > td > img").style.width = "150px"
+  document.querySelector("body > div > table > tbody > tr:nth-child(1) > td > img").style.width = "200px"
+  const ticketInfo = new URLSearchParams(window.location.search);
+  const table = document.querySelector("body > div > table")
+  table.style.width = "202px"
+  table.insertRow(4).insertCell(0).innerHTML = ticketInfo.get('deviceName')
+  table.insertRow(8).insertCell(0).innerHTML = `<strong>Issue</strong><br>${ticketInfo.get('deviceDiagnostic')}`
+  table.insertRow(11).insertCell(0).innerHTML = `<strong>Current Balance</strong><br>${ticketInfo.get('customerBalance')}`
 }
 
 const observer = new MutationObserver((mutations, mutationInstance) => {
@@ -67,6 +75,11 @@ observer.observe(document, {
     subtree:   true
 });
 
-const nav = document.getElementsByClassName("nav");
+const receiptButton = document.querySelector("#ticket > div:nth-child(3) > div > div > div.span8 > ul > li:nth-child(3) > a")
+const devicename = document.querySelector("#devices > div.block-content > div > table > tbody:nth-child(2) > tr > td:nth-child(1)").innerText;
+const devicediag = document.querySelector("#devices > div.block-content > div > table > tbody:nth-child(4) > tr > td").innerText;
+const customerbalance = document.querySelector("#totals > div.block-content > div.remaining > span").innerText;
+receiptButton.href += `?deviceName=${devicename}&deviceDiagnostic=${devicediag}&customerBalance=${customerbalance}`
 
-nav[1].innerHTML += `<li class=" hover-menu"><p style="padding-top: 10px; padding-left: 20px"><a style="color:#666; padding-left: 0; padding-right: 0;" href="https://github.com/JMTNTBANG/RepairQ-Mod">RepairQ Mod v0.4</a> by <a style="color:#666;  padding-left: 0; padding-right: 0;" href="https://github.com/JMTNTBANG">JMTNTBANG</a></p></li>`;
+const nav = document.querySelector("body > div.no-print-block.navbar.navbar-fixed-top.navbar-inverse > div > div > ul:nth-child(4)")
+nav.innerHTML += `<li class=" hover-menu"><p style="padding-top: 10px; padding-left: 20px"><a style="color:#666; padding-left: 0; padding-right: 0;" href="https://github.com/JMTNTBANG/RepairQ-Mod">RepairQ Mod v${extensionVersion}</a> by <a style="color:#666;  padding-left: 0; padding-right: 0;" href="https://github.com/JMTNTBANG">JMTNTBANG</a></p></li>`;
