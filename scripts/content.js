@@ -57,6 +57,13 @@ if (window.location.pathname.startsWith("/ticket/printLabel/")) {
   table.insertRow(4).insertCell(0).innerHTML = ticketInfo.get('deviceName')
   table.insertRow(8).insertCell(0).innerHTML = `<strong>Issue</strong><br>${ticketInfo.get('deviceDiagnostic')}`
   table.insertRow(11).insertCell(0).innerHTML = `<strong>Current Balance</strong><br>${ticketInfo.get('customerBalance')}`
+  table.insertRow(12).insertCell(0).innerHTML = `
+    <input type="checkbox" id="partOrdered"><label for="partOrdered">Part Ordered</label><br>
+    <input type="checkbox" id="partReveiced"><label for="partReveiced">Part Reveiced</label><br>
+    <input type="checkbox" id="deviceReceived"><label for="deviceReceived">Device Received</label><br>
+    <input type="checkbox" id="repairStarted"><label for="repairStarted">Repair Started</label><br>
+    <input type="checkbox" id="repairCompleted"><label for="repairCompleted">Ready For Pickup</label>
+  `
 }
 
 const observer = new MutationObserver((mutations, mutationInstance) => {
